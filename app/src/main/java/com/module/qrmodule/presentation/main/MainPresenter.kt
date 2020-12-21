@@ -66,6 +66,7 @@ class MainPresenter @Inject constructor() : MvpPresenter<IMainView>() {
                 cloudAnchorMode = Config.CloudAnchorMode.DISABLED
                 augmentedFaceMode = Config.AugmentedFaceMode.DISABLED
                 lightEstimationMode = Config.LightEstimationMode.DISABLED
+                planeFindingMode = Config.PlaneFindingMode.VERTICAL
             }
             configure(sessionConfig)
             viewState.setupSession(this)
@@ -74,7 +75,7 @@ class MainPresenter @Inject constructor() : MvpPresenter<IMainView>() {
 
     // Обновления сцены
     fun onUpdateFrame(frameTime: FrameTime) {
-        if ( isObjectPlaced) return
+        if (isObjectPlaced) return
         val frame = session?.update()
 
         frame?.getUpdatedTrackables(Plane::class.java)?.forEach {
@@ -90,7 +91,7 @@ class MainPresenter @Inject constructor() : MvpPresenter<IMainView>() {
 
         updatedAugmentedImages?.forEach { augmentedImage ->
             if (augmentedImage.trackingState == TrackingState.TRACKING) {
-                if (augmentedImage.trackingMethod == AugmentedImage.TrackingMethod.FULL_TRACKING) {
+//                if (augmentedImage.trackingMethod == AugmentedImage.TrackingMethod.LAST_KNOWN_POSE) {
                     viewState.showScanCorner(ui == null)
                     if (isObjectPlaced)
                         return
@@ -130,7 +131,7 @@ class MainPresenter @Inject constructor() : MvpPresenter<IMainView>() {
                     } catch (ex: NotYetAvailableException) {
                         ex.printStackTrace()
                     }
-                }
+//                }
             }
         }
     }

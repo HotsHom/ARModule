@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.module.qrmodule"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+//    api 'com.google.dagger:dagger:2.29.1'
+//    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.2'
+//    api 'com.google.dagger:dagger-android:2.23.2'
+//    api 'com.google.dagger:dagger-android-support:2.23.2' // if you use the support libraries
+//    annotationProcessor 'com.google.dagger:dagger-android-processor:2.30.1'
+
+    implementation "com.github.moxy-community:moxy:$moxyVersion"
+    kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-androidx:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-material:$moxyVersion"
+
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.ar:core:1.22.0'
+    implementation "com.google.ar.sceneform.ux:sceneform-ux:1.17.1"
+
+    implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.4.0'
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2"
+    kapt "com.google.dagger:dagger-compiler:$dagger2"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
+    //Dagger-Android
+    implementation "com.google.dagger:dagger-android:$dagger2"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2"
+    implementation "com.google.dagger:dagger-android-support:$dagger2"
+}
